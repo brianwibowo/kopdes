@@ -2,67 +2,98 @@ import React from "react";
 
 interface LogoProps {
   className?: string;
-  showText?: boolean;
   size?: "sm" | "md" | "lg";
+  showTagline?: boolean;
+  inverted?: boolean;
 }
 
-export function Logo({ className = "", showText = true, size = "md" }: LogoProps) {
-  const iconSize = size === "sm" ? 28 : size === "md" ? 36 : 48;
+export function Logo({ className = "", size = "md", showTagline = true, inverted = false }: LogoProps) {
+  const iconSize = size === "sm" ? 34 : size === "lg" ? 48 : 40;
 
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      {/* Emblem Merah Putih KDMP */}
+    <div className={`flex items-center gap-2.5 sm:gap-3 select-none ${className}`}>
+      {/* Custom KDMP Vector Brandmark */}
       <svg
         width={iconSize}
         height={iconSize}
         viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0 drop-shadow-sm"
+        className="shrink-0 drop-shadow-xs"
       >
-        <circle cx="24" cy="24" r="22" fill="#0f172a" stroke="#dc2626" strokeWidth="2.5" />
-        {/* Lingkaran Roda Gerigi Koperasi */}
-        <circle cx="24" cy="24" r="16" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
-        
-        {/* Perisai Merah Putih */}
-        <path
-          d="M24 9L34 14V24C34 30.5 29.5 36.5 24 38C18.5 36.5 14 30.5 14 24V14L24 9Z"
-          fill="#1e293b"
+        <defs>
+          <linearGradient id="logoRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#b91c1c" />
+            <stop offset="100%" stopColor="#7f1d1d" />
+          </linearGradient>
+          <linearGradient id="logoGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="100%" stopColor="#d97706" />
+          </linearGradient>
+        </defs>
+
+        {/* Shield / Badge Frame */}
+        <rect
+          x="1.5"
+          y="1.5"
+          width="45"
+          height="45"
+          rx="12"
+          fill="#ffffff"
           stroke="#e2e8f0"
           strokeWidth="1.5"
         />
-        {/* Belahan Merah Atas */}
+
+        {/* Red Flag Arch (Upper) */}
         <path
-          d="M24 10.5L32.5 14.8V23.5H15.5V14.8L24 10.5Z"
-          fill="#dc2626"
+          d="M 6 22 C 6 13 13 7 24 7 C 35 7 42 13 42 22 C 35 19.5 29 23.5 24 20 C 19 16.5 13 20 6 22 Z"
+          fill="url(#logoRedGrad)"
         />
-        {/* Belahan Putih Bawah */}
+
+        {/* White Base Arch (Lower) */}
         <path
-          d="M15.5 23.5H32.5C32.5 29.2 28.5 34.5 24 36.2C19.5 34.5 15.5 29.2 15.5 23.5Z"
-          fill="#f8fafc"
+          d="M 6 24 C 12 21.5 18 25 24 22 C 30 19 36 21.5 42 24 C 42 33 35 41 24 41 C 13 41 6 33 6 24 Z"
+          fill="#ffffff"
+          stroke="#cbd5e1"
+          strokeWidth="1"
         />
-        {/* Bintang Emas Pusat Kemakmuran */}
-        <polygon
-          points="24,19 25.5,22.5 29,22.5 26,24.5 27.2,28 24,25.8 20.8,28 22,24.5 19,22.5 22.5,22.5"
-          fill="#f59e0b"
+
+        {/* Golden Seed / Growth Sprout (Gotong Royong) */}
+        <path
+          d="M 24 13 C 24 13 28 18 28 22.5 C 28 25 26.2 27 24 27.8 C 21.8 27 20 25 20 22.5 C 20 18 24 13 24 13 Z"
+          fill="url(#logoGoldGrad)"
         />
+        <circle cx="24" cy="32.5" r="2.2" fill="url(#logoGoldGrad)" />
       </svg>
 
-      {showText && (
-        <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
-            <span className="font-extrabold tracking-tight text-white leading-none text-base">
-              KOPDES
-            </span>
-            <span className="font-extrabold text-red-500 tracking-tight leading-none text-base">
-              MERAH PUTIH
-            </span>
-          </div>
-          <span className="text-[10px] tracking-wider uppercase text-slate-400 font-medium mt-0.5">
-            Monitoring Spasial Nasional
+      {/* Brandmark Typography */}
+      <div className="flex flex-col leading-none">
+        <div className="flex items-center gap-1.5">
+          <span
+            className={`text-[17px] sm:text-[19px] font-black tracking-tight ${
+              inverted ? "text-white drop-shadow-xs" : "text-slate-900"
+            }`}
+          >
+            KOPDES
+          </span>
+          <span
+            className={`text-[17px] sm:text-[19px] font-black tracking-tight ${
+              inverted ? "text-red-400 drop-shadow-xs" : "text-red-700"
+            }`}
+          >
+            MERAH PUTIH
           </span>
         </div>
-      )}
+        {showTagline && (
+          <span
+            className={`text-[9.5px] sm:text-[10px] font-bold tracking-[0.14em] uppercase mt-1 ${
+              inverted ? "text-slate-200/90 drop-shadow-xs" : "text-slate-500"
+            }`}
+          >
+            Koperasi Desa Mandiri
+          </span>
+        )}
+      </div>
     </div>
   );
 }

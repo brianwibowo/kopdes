@@ -29,6 +29,10 @@ export function SimkopdesMap({ provinsiList, koperasiList }: SimkopdesMapProps) 
         const maplibregl = (await import("maplibre-gl")) as any;
         await import("maplibre-gl/dist/maplibre-gl.css");
 
+        if (typeof window !== "undefined" && typeof maplibregl.setWorkerUrl === "function") {
+          maplibregl.setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
+        }
+
         if (!isMounted) return;
 
         if (mapInstanceRef.current) {

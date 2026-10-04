@@ -59,7 +59,7 @@ export default function HomePage() {
       {/* Hero Banner Section (Merah Putih Elegan) */}
       <section
         id="landing-hero"
-        className="relative flex min-h-[560px] w-full flex-col overflow-hidden md:min-h-[660px] lg:h-[720px]"
+        className="relative flex min-h-[600px] w-full flex-col overflow-hidden md:min-h-[700px] lg:h-[760px] -mt-[75px] pt-[75px]"
       >
         {/* Background Image Hero */}
         <div
@@ -67,9 +67,9 @@ export default function HomePage() {
           style={{ backgroundImage: "url(/images/new-landing-page/hero.webp)" }}
         />
 
-        {/* Top Dark Crimson Gradient Overlay */}
+        {/* Top Dark Gradient Overlay for Transparent Header Legibility */}
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-[140px] bg-gradient-to-b from-[rgba(15,23,42,0.85)] to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[180px] bg-gradient-to-b from-[#0f172a]/90 via-[#0f172a]/50 to-transparent"
           aria-hidden="true"
         />
 

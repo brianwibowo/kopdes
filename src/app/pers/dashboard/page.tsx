@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { getKoperasiList, getProvinsiList, getStats, formatRupiah, formatAngka } from "@/lib/data";
 import { SimkopdesMap } from "@/components/map/SimkopdesMap";
+import { Pagination } from "@/components/ui/Pagination";
 import { 
   Building2, 
   Users, 
@@ -29,6 +30,8 @@ export default function DashboardStatistikPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [levelWilayah, setLevelWilayah] = useState("Provinsi");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -80,6 +83,16 @@ export default function DashboardStatistikPage() {
     const q = searchQuery.toLowerCase();
     return tableData.filter((r) => r.provinsi.toLowerCase().includes(q));
   }, [tableData, searchQuery]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  const totalPages = Math.ceil(filteredTable.length / pageSize) || 1;
+  const paginatedTable = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredTable.slice(start, start + pageSize);
+  }, [filteredTable, currentPage, pageSize]);
 
   const exportCsv = () => {
     const headers = [
@@ -439,7 +452,7 @@ export default function DashboardStatistikPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredTable.map((row) => (
+                  {paginatedTable.map((row) => (
                     <tr key={row.no} className="hover:bg-slate-50 transition-colors">
                       <td className="py-3 px-4 text-center text-slate-400 font-medium">{row.no}</td>
                       <td className="py-3 px-4 font-bold text-slate-900">{row.provinsi}</td>
@@ -463,6 +476,20 @@ export default function DashboardStatistikPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="border-t border-slate-200 bg-white">
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+                totalItems={filteredTable.length}
+                pageSize={pageSize}
+                onPageSizeChange={setPageSize}
+                pageSizeOptions={[10, 20, 38]}
+                itemName="provinsi"
+              />
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Phone, MapPin, ShieldCheck, ExternalLink } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
@@ -9,21 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
           {/* Kolom 1: Identitas & Visi Platform */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-3">
-              <img
-                src="/images/primer.webp"
-                alt="Logo KDMP"
-                className="h-10 w-auto object-contain"
-              />
-              <div>
-                <span className="text-base font-black text-slate-900 block leading-none">
-                  KOPDES <span className="text-red-700">MERAH PUTIH</span>
-                </span>
-                <span className="text-[11px] text-slate-500 font-medium">
-                  Sistem Pemantauan Spasial & Rantai Pasok
-                </span>
-              </div>
-            </div>
+            <Logo size="md" />
             <p className="text-xs text-slate-600 leading-relaxed max-w-sm">
               Platform intelijen spasial dan tata kelola terpadu untuk mengawal kemandirian ekonomi desa, transparansi legalitas badan hukum, serta penyerapan komoditas unggulan rakyat ke offtaker nasional.
             </p>

@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { getKoperasiList, getProvinsiList, formatRupiah, formatAngka } from "@/lib/data";
+import { Pagination } from "@/components/ui/Pagination";
 import { 
   Building2, 
   Search, 
@@ -20,6 +21,8 @@ export default function KoperasiPage() {
   const [search, setSearch] = useState("");
   const [selectedProvinsi, setSelectedProvinsi] = useState("ALL");
   const [selectedStatus, setSelectedStatus] = useState("ALL");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const filteredKoperasi = useMemo(() => {
     return allKoperasi.filter((k) => {
@@ -47,7 +50,18 @@ export default function KoperasiPage() {
     setSearch("");
     setSelectedProvinsi("ALL");
     setSelectedStatus("ALL");
+    setCurrentPage(1);
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, selectedProvinsi, selectedStatus]);
+
+  const totalPages = Math.ceil(filteredKoperasi.length / pageSize) || 1;
+  const paginatedKoperasi = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredKoperasi.slice(start, start + pageSize);
+  }, [filteredKoperasi, currentPage, pageSize]);
 
   const exportCsv = () => {
     const headers = [
@@ -193,14 +207,14 @@ export default function KoperasiPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E6E8EB]">
-                {filteredKoperasi.length === 0 ? (
+                {paginatedKoperasi.length === 0 ? (
                   <tr>
                     <td colSpan={9} className="py-10 text-center text-gray-500">
                       Tidak ada data koperasi yang sesuai dengan filter.
                     </td>
                   </tr>
                 ) : (
-                  filteredKoperasi.map((k) => (
+                  paginatedKoperasi.map((k) => (
                     <tr key={k.id} className="hover:bg-gray-50 transition-colors">
                       <td className="py-3 px-4 font-mono font-bold text-[#991b1b]">{k.noRegistrasi}</td>
                       <td className="py-3 px-4">
@@ -245,6 +259,20 @@ export default function KoperasiPage() {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="border-t border-[#E6E8EB] bg-white">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              totalItems={filteredKoperasi.length}
+              pageSize={pageSize}
+              onPageSizeChange={setPageSize}
+              pageSizeOptions={[10, 20, 50]}
+              itemName="koperasi"
+            />
           </div>
         </div>
       </div>

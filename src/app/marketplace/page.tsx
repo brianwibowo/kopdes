@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { getKoperasiList, formatRupiah, formatAngka } from "@/lib/data";
+import { Pagination } from "@/components/ui/Pagination";
 import { 
   ShoppingBag, 
   Search, 
@@ -24,6 +25,8 @@ export default function MarketplacePage() {
   const [search, setSearch] = useState("");
   const [selectedKategori, setSelectedKategori] = useState("ALL");
   const [selectedProvinsi, setSelectedProvinsi] = useState("ALL");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(9);
 
   const categories = [
     { id: "ALL", label: "Semua Komoditas" },
@@ -86,6 +89,16 @@ export default function MarketplacePage() {
       return true;
     });
   }, [commodities, search, selectedKategori, selectedProvinsi]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, selectedKategori, selectedProvinsi]);
+
+  const totalPages = Math.ceil(filteredCommodities.length / pageSize) || 1;
+  const paginatedCommodities = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredCommodities.slice(start, start + pageSize);
+  }, [filteredCommodities, currentPage, pageSize]);
 
   return (
     <div className="bg-white min-h-screen py-8">
@@ -160,7 +173,7 @@ export default function MarketplacePage() {
 
         {/* Commodity Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCommodities.map((item) => (
+          {paginatedCommodities.map((item) => (
             <div
               key={item.id}
               className="rounded-xl border border-slate-200 bg-white p-5 hover:border-red-600 hover:shadow-md transition-all flex flex-col justify-between group"
@@ -247,6 +260,23 @@ export default function MarketplacePage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="rounded-xl border border-slate-200 bg-white p-2">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => {
+              setCurrentPage(page);
+              window.scrollTo({ top: 380, behavior: "smooth" });
+            }}
+            totalItems={filteredCommodities.length}
+            pageSize={pageSize}
+            onPageSizeChange={setPageSize}
+            pageSizeOptions={[9, 18, 36]}
+            itemName="komoditas"
+          />
         </div>
       </div>
     </div>
