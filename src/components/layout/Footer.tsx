@@ -1,113 +1,121 @@
 import React from "react";
 import Link from "next/link";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, ShieldCheck, ExternalLink } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="w-full bg-[#F2F3F7] border-t border-[#E6E8EB] mt-auto">
+    <footer className="w-full bg-[#f8fafc] border-t border-slate-200 mt-auto">
       <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          {/* Tautan Cepat */}
-          <div className="lg:col-span-3">
-            <h3 className="text-xl font-bold text-[#065366]">Tautan Cepat</h3>
-            <ul className="mt-5 space-y-3.5 text-base text-[#065366]">
-              <li>
-                <Link className="transition-colors hover:text-[#044352] hover:underline" href="/pers/dashboard">
-                  Dasbor Simkopdes
-                </Link>
-              </li>
-              <li>
-                <Link className="transition-colors hover:text-[#044352] hover:underline" href="/pers/dashboard">
-                  Statistik
-                </Link>
-              </li>
-              <li>
-                <a className="transition-colors hover:text-[#044352] hover:underline" href="https://simkopdes.go.id/apps">
-                  Unduh Simkopdes Mobile
-                </a>
-              </li>
-              <li>
-                <a
-                  className="transition-colors hover:text-[#044352] hover:underline"
-                  href="https://lms.kop.go.id/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Kemenkop Corporate University
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Informasi */}
-          <div className="lg:col-span-3">
-            <h3 className="text-xl font-bold text-[#065366]">Informasi</h3>
-            <ul className="mt-5 space-y-3.5 text-base text-[#065366]">
-              <li>
-                <a className="transition-colors hover:text-[#044352] hover:underline" href="https://simkopdes.go.id/kontak">
-                  Kontak Satgas KDKMP
-                </a>
-              </li>
-              <li>
-                <a
-                  className="transition-colors hover:text-[#044352] hover:underline"
-                  href="https://wa.me/628111500587"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Bantuan Simkopdes (WhatsApp)
-                </a>
-              </li>
-              <li>
-                <a className="transition-colors hover:text-[#044352] hover:underline" href="https://simkopdes.go.id/syarat-dan-ketentuan">
-                  Syarat dan Ketentuan
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Media Sosial */}
-          <div className="lg:col-span-3">
-            <h3 className="text-xl font-bold text-[#065366]">Media Sosial</h3>
-            <div className="mt-5 flex flex-wrap gap-2.5">
-              {["TikTok", "YouTube", "X", "Facebook", "Instagram"].map((sosmed) => (
-                <span
-                  key={sosmed}
-                  className="px-3 py-1 rounded-full border border-[#065366] text-xs font-semibold text-[#065366] hover:bg-[#065366] hover:text-white transition-colors cursor-pointer"
-                >
-                  {sosmed}
+          {/* Kolom 1: Identitas & Visi Platform */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="flex items-center gap-3">
+              <img
+                src="/images/primer.webp"
+                alt="Logo KDMP"
+                className="h-10 w-auto object-contain"
+              />
+              <div>
+                <span className="text-base font-black text-slate-900 block leading-none">
+                  KOPDES <span className="text-red-700">MERAH PUTIH</span>
                 </span>
-              ))}
+                <span className="text-[11px] text-slate-500 font-medium">
+                  Sistem Pemantauan Spasial & Rantai Pasok
+                </span>
+              </div>
             </div>
-            <p className="text-xs text-[#065366]/80 mt-4 leading-relaxed">
-              Kanal resmi Kementerian Koperasi Republik Indonesia untuk sosialisasi program Koperasi Desa Merah Putih.
+            <p className="text-xs text-slate-600 leading-relaxed max-w-sm">
+              Platform intelijen spasial dan tata kelola terpadu untuk mengawal kemandirian ekonomi desa, transparansi legalitas badan hukum, serta penyerapan komoditas unggulan rakyat ke offtaker nasional.
             </p>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-50 border border-red-200 text-[11px] text-red-800 font-semibold">
+              <ShieldCheck className="w-3.5 h-3.5 text-red-700" />
+              <span>Cakupan Pemantauan: 38 Provinsi Seluruh Indonesia</span>
+            </div>
           </div>
 
-          {/* Satgas KDKMP & Kontak */}
+          {/* Kolom 2: Navigasi Cepat */}
+          <div className="lg:col-span-2">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Navigasi Platform
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-xs text-slate-600">
+              <li>
+                <Link className="hover:text-red-700 transition-colors" href="/">
+                  Beranda Nasional
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-red-700 transition-colors" href="/pers/dashboard">
+                  Dashboard Statistik
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-red-700 transition-colors" href="/marketplace">
+                  Marketplace Komoditas
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-red-700 transition-colors" href="/peta">
+                  Peta Spasial Indonesia
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Kolom 3: Tata Kelola & Regulasi */}
           <div className="lg:col-span-3">
-            <h3 className="text-xl font-bold text-[#065366]">Satgas KDKMP</h3>
-            <div className="mt-5 space-y-3 text-sm text-[#065366]">
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#a0b73e] shrink-0" />
-                <span className="font-semibold">(021) 1500 587</span>
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Tata Kelola & Kepatuhan
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-xs text-slate-600">
+              <li className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-700" />
+                <span>Pengesahan Badan Hukum (AHU)</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-700" />
+                <span>Nomor Induk Berusaha (OSS)</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-700" />
+                <span>Kepatuhan Rapat Anggota Tahunan</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-700" />
+                <span>Audit & Akuntabilitas Finansial</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Kolom 4: Sekretariat Pengawasan */}
+          <div className="lg:col-span-3">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              Sekretariat Pengawasan
+            </h3>
+            <div className="mt-4 space-y-2.5 text-xs text-slate-600">
+              <div className="flex items-center gap-2 text-slate-800 font-semibold">
+                <Phone className="w-3.5 h-3.5 text-red-700" />
+                <span>(021) 1500 587 (Layanan Terpadu)</span>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#a0b73e] shrink-0 mt-0.5" />
-                <span className="text-xs leading-relaxed text-[#065366]/90">
-                  Graha Mandiri Lt.3, Jl. Imam Bonjol No.61, Menteng, Kota Jakarta Pusat, DKI Jakarta 10310
+                <MapPin className="w-3.5 h-3.5 text-red-700 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">
+                  Graha Mandiri Lt.3, Jl. Imam Bonjol No.61, Menteng, Jakarta Pusat 10310
                 </span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright Bar */}
-        <div className="mt-12 pt-6 border-t border-[#E6E8EB] flex flex-col sm:flex-row items-center justify-between text-xs text-[#065366]/80 gap-3">
-          <p>© 2026 . Kementerian Koperasi Republik Indonesia</p>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#a0b73e]" />
-            <span>Sistem Informasi Monitoring Koperasi Desa / Kelurahan Merah Putih</span>
+        {/* Bottom Copyright Bar */}
+        <div className="mt-12 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
+          <p>© 2026 Koperasi Desa Merah Putih (KDMP). Hak Cipta Dilindungi.</p>
+          <div className="flex items-center gap-3">
+            <span className="hover:text-slate-800 transition-colors cursor-pointer">Kebijakan Privasi</span>
+            <span>•</span>
+            <span className="hover:text-slate-800 transition-colors cursor-pointer">Standar Data Terbuka</span>
+            <span>•</span>
+            <span className="text-red-700 font-semibold">Portal Eksekutif</span>
           </div>
         </div>
       </div>

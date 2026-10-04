@@ -1,36 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --bg-main: #ffffff;
-  --bg-surface: #f2f3f7;
-  --bg-card: #f2f3f7;
-  --bg-icon: #e6edef;
-  --border-card: #e6e8eb;
-  --border-subtle: #dbe0e5;
+  /* Nuansa Merah Putih Institusional (Dignified & Comfortable) */
+  --color-primary: #991b1b;        /* Crimson Red 800 (Wibawa, Kontras Tinggi) */
+  --color-primary-dark: #7f1d1d;   /* Crimson Red 900 */
+  --color-primary-light: #b91c1c;  /* Red 700 */
+  --color-primary-soft: #fef2f2;   /* Red 50 (Sangat lembut untuk background highlight) */
+  --color-primary-border: #fee2e2; /* Red 100 */
 
-  --color-teal: #065366;
-  --color-teal-dark: #044352;
-  --color-teal-light: #e6edef;
-  --color-green: #a0b73e;
-  --color-green-dark: #859d18;
+  --color-surface-card: #ffffff;
+  --color-surface-subtle: #f8fafc;
+  --color-surface-muted: #f1f5f9;
+  --color-border-card: #e2e8f0;
+  --color-border-subtle: #cbd5e1;
 
-  --text-primary: #065366;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-dark: #0f172a;
+  --color-text-title: #0f172a;     /* Slate 900 untuk judul agar tegas tanpa silau */
+  --color-text-body: #334155;      /* Slate 700 untuk kenyamanan membaca */
+  --color-text-muted: #64748b;     /* Slate 500 */
 
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 }
 
 @theme inline {
-  --color-simkop-teal: var(--color-teal);
-  --color-simkop-teal-dark: var(--color-teal-dark);
-  --color-simkop-teal-light: var(--color-teal-light);
-  --color-simkop-green: var(--color-green);
-  --color-simkop-green-dark: var(--color-green-dark);
-  --color-simkop-card-bg: var(--bg-card);
-  --color-simkop-card-border: var(--border-card);
-  --color-simkop-icon-bg: var(--bg-icon);
+  --color-kdmp-red: var(--color-primary);
+  --color-kdmp-red-dark: var(--color-primary-dark);
+  --color-kdmp-red-light: var(--color-primary-light);
+  --color-kdmp-red-soft: var(--color-primary-soft);
+  --color-kdmp-red-border: var(--color-primary-border);
+  --color-kdmp-surface: var(--color-surface-subtle);
+  --color-kdmp-card: var(--color-surface-card);
+  --color-kdmp-border: var(--color-border-card);
   --font-sans: var(--font-sans);
 }
 
@@ -46,14 +45,14 @@ html {
 body {
   font-family: var(--font-sans);
   background-color: #ffffff;
-  color: var(--text-dark);
+  color: var(--color-text-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* MapLibre styling clean light government */
+/* MapLibre styling */
 .maplibregl-map {
-  border-radius: 10px;
+  border-radius: 12px;
 }
 .maplibregl-ctrl-attrib {
   font-size: 11px !important;

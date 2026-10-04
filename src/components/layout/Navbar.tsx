@@ -2,109 +2,98 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, X, ExternalLink } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  BarChart3, 
+  ShoppingBag, 
+  Menu, 
+  X, 
+  ShieldCheck,
+  ChevronRight
+} from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [corpUniOpen, setCorpUniOpen] = useState(false);
+
+  const navItems = [
+    { label: "Beranda", href: "/", icon: LayoutDashboard },
+    { label: "Statistik", href: "/pers/dashboard", icon: BarChart3 },
+    { label: "Marketplace", href: "/marketplace", icon: ShoppingBag },
+  ];
+
+  const isStatistikActive = pathname.startsWith("/pers/dashboard") || pathname === "/statistik";
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-xl border-b border-gray-200/80 shadow-xs">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8 h-[75px]">
-        {/* Logo Primer SIMKOPDES */}
-        <Link href="/" className="flex items-center">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8 h-[74px]">
+        {/* Logo Primer KOPDES Merah Putih */}
+        <Link href="/" className="flex items-center gap-3 group">
           <img
             src="/images/primer.webp"
-            alt="SIMKOPDES - Koperasi Desa/Kelurahan Merah Putih"
+            alt="KOPDES MERAH PUTIH"
             className="h-10 sm:h-12 w-auto object-contain"
           />
+          <div className="hidden sm:flex flex-col border-l border-slate-200 pl-3">
+            <span className="text-[13px] font-black tracking-tight text-slate-900 leading-none">
+              KOPDES <span className="text-red-700">MERAH PUTIH</span>
+            </span>
+            <span className="text-[10px] text-slate-500 font-medium tracking-wide mt-0.5">
+              Platform Monitoring & Komoditas Nasional
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex items-center gap-x-7">
-          <Link
-            href="/"
-            className={`text-base font-medium transition-colors ${
-              pathname === "/" ? "text-[#a0b73e] font-bold" : "text-gray-900 hover:text-[#a0b73e]"
-            }`}
-          >
-            Beranda
-          </Link>
+        {/* Desktop Navigation Links (Beranda, Statistik, Marketplace) */}
+        <div className="hidden md:flex items-center gap-x-1 lg:gap-x-2">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : item.href === "/pers/dashboard"
+                ? isStatistikActive
+                : pathname.startsWith(item.href);
 
-          {/* Corporate University Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setCorpUniOpen(!corpUniOpen)}
-              onMouseEnter={() => setCorpUniOpen(true)}
-              className="flex items-center gap-1 text-base font-medium text-gray-900 hover:text-[#a0b73e] transition-colors"
-            >
-              <span>Corporate University</span>
-              <ChevronDown className="w-4 h-4 text-gray-500" />
-            </button>
-
-            {corpUniOpen && (
-              <div
-                onMouseLeave={() => setCorpUniOpen(false)}
-                className="absolute left-0 mt-2 w-52 bg-white rounded-md shadow-lg border border-gray-100 py-1 z-50 animate-fade-in"
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+                  isActive
+                    ? "bg-red-50 text-red-800 border border-red-200/80 shadow-2xs"
+                    : "text-slate-700 hover:text-red-700 hover:bg-slate-50"
+                }`}
               >
-                <a
-                  href="https://lms.kop.go.id/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#065366] transition-colors"
-                >
-                  Akses Pembelajaran
-                </a>
-                <a
-                  href="https://lms.kop.go.id/game"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#065366] transition-colors"
-                >
-                  Gim
-                </a>
-              </div>
-            )}
+                <Icon className={`w-4 h-4 ${isActive ? "text-red-700" : "text-slate-400"}`} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right Status Badge */}
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">
+            <ShieldCheck className="w-3.5 h-3.5 text-red-700" />
+            <span>Viewer Resmi Nasional</span>
           </div>
 
           <Link
             href="/pers/dashboard"
-            className={`text-base font-medium transition-colors ${
-              pathname.startsWith("/pers/dashboard") || pathname === "/statistik"
-                ? "text-[#a0b73e] font-bold"
-                : "text-gray-900 hover:text-[#a0b73e]"
-            }`}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition-colors shadow-2xs"
           >
-            Statistik
-          </Link>
-
-          <a
-            href="https://trade.simkopdes.go.id/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-base font-medium text-gray-900 hover:text-[#a0b73e] transition-colors"
-          >
-            Coop Trade
-          </a>
-
-          {/* Action Button: Masuk */}
-          <Link
-            href="/pers/dashboard"
-            className="px-5 py-2 rounded-md font-semibold text-sm text-white bg-[#a0b73e] hover:bg-[#859d18] transition-colors shadow-xs"
-          >
-            Masuk
+            <span>Buka Dashboard</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         {/* Mobile Hamburger Button */}
-        <div className="lg:hidden flex items-center">
+        <div className="md:hidden flex items-center">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-md text-gray-700 hover:text-[#a0b73e]"
+            className="p-2 rounded-md text-slate-700 hover:text-red-700 hover:bg-slate-100"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -114,44 +103,44 @@ export function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-gray-200 px-4 pt-3 pb-5 space-y-3 shadow-md">
-          <Link
-            href="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-gray-900 hover:text-[#a0b73e]"
-          >
-            Beranda
-          </Link>
-          <Link
-            href="/pers/dashboard"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-gray-900 hover:text-[#a0b73e]"
-          >
-            Statistik
-          </Link>
-          <a
-            href="https://lms.kop.go.id/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-base font-medium text-gray-700 hover:text-[#a0b73e]"
-          >
-            Corporate University
-          </a>
-          <a
-            href="https://trade.simkopdes.go.id/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-base font-medium text-gray-700 hover:text-[#a0b73e]"
-          >
-            Coop Trade
-          </a>
-          <div className="pt-2">
+        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-2 shadow-lg">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : item.href === "/pers/dashboard"
+                ? isStatistikActive
+                : pathname.startsWith(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold ${
+                  isActive
+                    ? "bg-red-50 text-red-800 border border-red-200"
+                    : "text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                <Icon className={`w-4 h-4 ${isActive ? "text-red-700" : "text-slate-500"}`} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+
+          <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 px-1">
+            <span className="flex items-center gap-1 font-medium">
+              <ShieldCheck className="w-3.5 h-3.5 text-red-700" />
+              <span>Viewer Resmi Nasional</span>
+            </span>
             <Link
               href="/pers/dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="block w-full text-center px-4 py-2.5 rounded-md font-semibold text-sm text-white bg-[#a0b73e] hover:bg-[#859d18]"
+              className="text-red-700 font-bold"
             >
-              Masuk
+              Statistik →
             </Link>
           </div>
         </div>

@@ -102,7 +102,7 @@ export default function KoperasiPage() {
         {/* Header & Export CTA */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#E6E8EB] gap-4">
           <div>
-            <h1 className="text-[28px] sm:text-[34px] font-bold text-[#065366]">
+            <h1 className="text-[28px] sm:text-[34px] font-bold text-[#991b1b]">
               Direktori Koperasi Desa/Kelurahan
             </h1>
             <p className="text-sm text-gray-500 mt-1">
@@ -112,7 +112,7 @@ export default function KoperasiPage() {
 
           <button
             onClick={exportCsv}
-            className="flex items-center gap-2 px-4 py-2 rounded-md bg-[#065366] hover:bg-[#044352] text-white text-xs font-bold transition-colors shadow-xs"
+            className="flex items-center gap-2 px-4 py-2 rounded-md bg-[#991b1b] hover:bg-[#7f1d1d] text-white text-xs font-bold transition-colors shadow-xs"
           >
             <Download className="w-4 h-4" />
             <span>Unduh Rekap CSV</span>
@@ -129,14 +129,14 @@ export default function KoperasiPage() {
                 placeholder="Cari nama koperasi, desa, kabupaten..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-white text-gray-900 text-xs pl-9 pr-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#065366]"
+                className="w-full bg-white text-gray-900 text-xs pl-9 pr-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#991b1b]"
               />
             </div>
 
             <select
               value={selectedProvinsi}
               onChange={(e) => setSelectedProvinsi(e.target.value)}
-              className="bg-white text-gray-900 text-xs px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#065366]"
+              className="bg-white text-gray-900 text-xs px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#991b1b]"
             >
               <option value="ALL">Semua Provinsi ({provinsiList.length})</option>
               {provinsiList.map((p) => (
@@ -149,7 +149,7 @@ export default function KoperasiPage() {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="bg-white text-gray-900 text-xs px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#065366]"
+              className="bg-white text-gray-900 text-xs px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#991b1b]"
             >
               <option value="ALL">Semua Status Keaktifan</option>
               <option value="AKTIF">Aktif</option>
@@ -166,7 +166,7 @@ export default function KoperasiPage() {
             {(search || selectedProvinsi !== "ALL" || selectedStatus !== "ALL") && (
               <button
                 onClick={handleReset}
-                className="flex items-center gap-1 text-[#065366] hover:underline font-bold"
+                className="flex items-center gap-1 text-[#991b1b] hover:underline font-bold"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reset Filter</span>
@@ -179,7 +179,7 @@ export default function KoperasiPage() {
         <div className="rounded-[10px] border border-[#E6E8EB] overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs whitespace-nowrap">
-              <thead className="bg-[#F2F3F7] text-[#065366] font-bold uppercase text-[11px] border-b border-[#E6E8EB]">
+              <thead className="bg-[#F2F3F7] text-[#991b1b] font-bold uppercase text-[11px] border-b border-[#E6E8EB]">
                 <tr>
                   <th className="py-3 px-4">No. Registrasi</th>
                   <th className="py-3 px-4">Nama Koperasi</th>
@@ -202,11 +202,11 @@ export default function KoperasiPage() {
                 ) : (
                   filteredKoperasi.map((k) => (
                     <tr key={k.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="py-3 px-4 font-mono font-bold text-[#065366]">{k.noRegistrasi}</td>
+                      <td className="py-3 px-4 font-mono font-bold text-[#991b1b]">{k.noRegistrasi}</td>
                       <td className="py-3 px-4">
                         <Link
                           href={`/pers/dashboard/village/${k.id}?village_name=${encodeURIComponent(k.desa)}`}
-                          className="font-bold text-gray-900 hover:text-[#065366] hover:underline block"
+                          className="font-bold text-gray-900 hover:text-[#991b1b] hover:underline block"
                         >
                           {k.nama}
                         </Link>
@@ -234,7 +234,7 @@ export default function KoperasiPage() {
                       <td className="py-3 px-4 text-center">
                         <Link
                           href={`/pers/dashboard/village/${k.id}?village_name=${encodeURIComponent(k.desa)}`}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#065366] hover:bg-[#044352] text-white text-[11px] font-bold transition-colors"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#991b1b] hover:bg-[#7f1d1d] text-white text-[11px] font-bold transition-colors"
                         >
                           <span>Detail</span>
                           <ChevronRight className="w-3 h-3" />
