@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
-export default function ProgresRedirectPage() {
+export default function StatistikAliasPage() {
   redirect("/pers/dashboard");
 }

@@ -1,62 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #0c1220;
-  --bg-secondary: #111827;
-  --bg-card: #1a2332;
-  --bg-card-hover: #1f2b3d;
-  --bg-elevated: #243044;
-  --border-subtle: #1e2d40;
-  --border-default: #2a3a50;
+  --bg-main: #ffffff;
+  --bg-surface: #f2f3f7;
+  --bg-card: #f2f3f7;
+  --bg-icon: #e6edef;
+  --border-card: #e6e8eb;
+  --border-subtle: #dbe0e5;
 
-  --text-primary: #f0f4f8;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #64748b;
-  --text-muted: #475569;
+  --color-teal: #065366;
+  --color-teal-dark: #044352;
+  --color-teal-light: #e6edef;
+  --color-green: #a0b73e;
+  --color-green-dark: #859d18;
 
-  --accent-red: #dc2626;
-  --accent-red-soft: rgba(220, 38, 38, 0.12);
-  --accent-red-glow: rgba(220, 38, 38, 0.25);
-  --accent-green: #16a34a;
-  --accent-green-soft: rgba(22, 163, 74, 0.12);
-  --accent-amber: #d97706;
-  --accent-amber-soft: rgba(217, 119, 6, 0.12);
-  --accent-blue: #2563eb;
-  --accent-blue-soft: rgba(37, 99, 235, 0.12);
+  --text-primary: #065366;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-dark: #0f172a;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
-
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.4);
-
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-default: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 }
 
 @theme inline {
-  --color-bg-primary: var(--bg-primary);
-  --color-bg-secondary: var(--bg-secondary);
-  --color-bg-card: var(--bg-card);
-  --color-bg-card-hover: var(--bg-card-hover);
-  --color-bg-elevated: var(--bg-elevated);
-  --color-border-subtle: var(--border-subtle);
-  --color-border-default: var(--border-default);
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-tertiary: var(--text-tertiary);
-  --color-text-muted: var(--text-muted);
-  --color-accent-red: var(--accent-red);
-  --color-accent-red-soft: var(--accent-red-soft);
-  --color-accent-green: var(--accent-green);
-  --color-accent-green-soft: var(--accent-green-soft);
-  --color-accent-amber: var(--accent-amber);
-  --color-accent-amber-soft: var(--accent-amber-soft);
-  --color-accent-blue: var(--accent-blue);
-  --color-accent-blue-soft: var(--accent-blue-soft);
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --color-simkop-teal: var(--color-teal);
+  --color-simkop-teal-dark: var(--color-teal-dark);
+  --color-simkop-teal-light: var(--color-teal-light);
+  --color-simkop-green: var(--color-green);
+  --color-simkop-green-dark: var(--color-green-dark);
+  --color-simkop-card-bg: var(--bg-card);
+  --color-simkop-card-border: var(--border-card);
+  --color-simkop-icon-bg: var(--bg-icon);
+  --font-sans: var(--font-sans);
 }
 
 * {
@@ -65,63 +40,22 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #ffffff;
 }
 
 body {
-  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection {
-  background: var(--accent-red);
-  color: white;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-default);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out both;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.5s ease-out both;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.stagger-1 { animation-delay: 50ms; }
-.stagger-2 { animation-delay: 100ms; }
-.stagger-3 { animation-delay: 150ms; }
-.stagger-4 { animation-delay: 200ms; }
-
+/* MapLibre styling clean light government */
 .maplibregl-map {
-  border-radius: var(--radius-lg);
+  border-radius: 10px;
 }
 .maplibregl-ctrl-attrib {
-  font-size: 10px !important;
-  opacity: 0.6;
+  font-size: 11px !important;
+  opacity: 0.75;
 }

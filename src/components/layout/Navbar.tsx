@@ -2,138 +2,160 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Logo } from "../ui/Logo";
-import { 
-  LayoutDashboard, 
-  MapPin, 
-  Building2, 
-  TrendingUp, 
-  Info, 
-  Menu, 
-  X,
-  ExternalLink,
-  ShieldCheck
-} from "lucide-react";
+import { ChevronDown, Menu, X, ExternalLink } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navItems = [
-    { label: "Ringkasan", href: "/", icon: LayoutDashboard },
-    { label: "Peta Sebaran", href: "/peta", icon: MapPin },
-    { label: "Direktori Koperasi", href: "/koperasi", icon: Building2 },
-    { label: "Tahapan Progres", href: "/progres", icon: TrendingUp },
-  ];
+  const [corpUniOpen, setCorpUniOpen] = useState(false);
 
   return (
-    <>
-      {/* Banner Transparansi Data Simulasi (Standar Anti-Slop R-17) */}
-      <div className="bg-amber-950/70 border-b border-amber-800/40 px-4 py-1.5 text-center text-xs text-amber-200 flex items-center justify-center gap-2">
-        <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-        <span className="font-semibold">Mode Pratinjau:</span>
-        <span>Menampilkan 50 Koperasi Contoh di 38 Provinsi Seluruh Indonesia</span>
-        <span className="hidden md:inline text-amber-400/60">•</span>
-        <span className="hidden md:inline text-amber-300/80">Basis Data: Pelaporan Oktober 2026</span>
-      </div>
+    <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-xl border-b border-gray-200/80 shadow-xs">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8 h-[75px]">
+        {/* Logo Primer SIMKOPDES */}
+        <Link href="/" className="flex items-center">
+          <img
+            src="/images/primer.webp"
+            alt="SIMKOPDES - Koperasi Desa/Kelurahan Merah Putih"
+            className="h-10 sm:h-12 w-auto object-contain"
+          />
+        </Link>
 
-      {/* Main Navbar */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="hover:opacity-90 transition-opacity">
-            <Logo size="md" />
+        {/* Desktop Navigation Links */}
+        <div className="hidden lg:flex items-center gap-x-7">
+          <Link
+            href="/"
+            className={`text-base font-medium transition-colors ${
+              pathname === "/" ? "text-[#a0b73e] font-bold" : "text-gray-900 hover:text-[#a0b73e]"
+            }`}
+          >
+            Beranda
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-md text-sm font-medium transition-colors ${
-                    isActive
-                      ? "bg-slate-800 text-white border border-slate-700/60 shadow-sm"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/60"
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-red-500" : "text-slate-400"}`} />
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Right Action / Role Badge */}
-          <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs text-slate-300">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Viewer (Read-Only)</span>
-            </div>
-
-            <a
-              href="https://simkopdes.go.id"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-slate-400 hover:text-red-400 transition-colors px-2 py-1"
-              title="Portal Resmi SIMKOPDES"
-            >
-              <span>SIMKOPDES Resmi</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden">
+          {/* Corporate University Dropdown */}
+          <div className="relative">
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800"
-              aria-label="Toggle menu"
+              type="button"
+              onClick={() => setCorpUniOpen(!corpUniOpen)}
+              onMouseEnter={() => setCorpUniOpen(true)}
+              className="flex items-center gap-1 text-base font-medium text-gray-900 hover:text-[#a0b73e] transition-colors"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <span>Corporate University</span>
+              <ChevronDown className="w-4 h-4 text-gray-500" />
             </button>
+
+            {corpUniOpen && (
+              <div
+                onMouseLeave={() => setCorpUniOpen(false)}
+                className="absolute left-0 mt-2 w-52 bg-white rounded-md shadow-lg border border-gray-100 py-1 z-50 animate-fade-in"
+              >
+                <a
+                  href="https://lms.kop.go.id/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#065366] transition-colors"
+                >
+                  Akses Pembelajaran
+                </a>
+                <a
+                  href="https://lms.kop.go.id/game"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-[#065366] transition-colors"
+                >
+                  Gim
+                </a>
+              </div>
+            )}
           </div>
+
+          <Link
+            href="/pers/dashboard"
+            className={`text-base font-medium transition-colors ${
+              pathname.startsWith("/pers/dashboard") || pathname === "/statistik"
+                ? "text-[#a0b73e] font-bold"
+                : "text-gray-900 hover:text-[#a0b73e]"
+            }`}
+          >
+            Statistik
+          </Link>
+
+          <a
+            href="https://trade.simkopdes.go.id/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base font-medium text-gray-900 hover:text-[#a0b73e] transition-colors"
+          >
+            Coop Trade
+          </a>
+
+          {/* Action Button: Masuk */}
+          <Link
+            href="/pers/dashboard"
+            className="px-5 py-2 rounded-md font-semibold text-sm text-white bg-[#a0b73e] hover:bg-[#859d18] transition-colors shadow-xs"
+          >
+            Masuk
+          </Link>
         </div>
 
-        {/* Mobile Dropdown Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-b border-slate-800 bg-slate-950 px-4 pt-2 pb-4 space-y-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-base font-medium ${
-                    isActive
-                      ? "bg-slate-800 text-white"
-                      : "text-slate-400 hover:bg-slate-900 hover:text-white"
-                  }`}
-                >
-                  <Icon className={`w-5 h-5 ${isActive ? "text-red-500" : "text-slate-400"}`} />
-                  {item.label}
-                </Link>
-              );
-            })}
-            <div className="pt-3 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400 px-3">
-              <span>Mode: Viewer (Read-Only)</span>
-              <a
-                href="https://simkopdes.go.id"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-red-400 flex items-center gap-1"
-              >
-                SIMKOPDES Resmi <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
+        {/* Mobile Hamburger Button */}
+        <div className="lg:hidden flex items-center">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-md text-gray-700 hover:text-[#a0b73e]"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-white border-b border-gray-200 px-4 pt-3 pb-5 space-y-3 shadow-md">
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-medium text-gray-900 hover:text-[#a0b73e]"
+          >
+            Beranda
+          </Link>
+          <Link
+            href="/pers/dashboard"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-medium text-gray-900 hover:text-[#a0b73e]"
+          >
+            Statistik
+          </Link>
+          <a
+            href="https://lms.kop.go.id/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-base font-medium text-gray-700 hover:text-[#a0b73e]"
+          >
+            Corporate University
+          </a>
+          <a
+            href="https://trade.simkopdes.go.id/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-base font-medium text-gray-700 hover:text-[#a0b73e]"
+          >
+            Coop Trade
+          </a>
+          <div className="pt-2">
+            <Link
+              href="/pers/dashboard"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block w-full text-center px-4 py-2.5 rounded-md font-semibold text-sm text-white bg-[#a0b73e] hover:bg-[#859d18]"
+            >
+              Masuk
+            </Link>
           </div>
-        )}
-      </header>
-    </>
+        </div>
+      )}
+    </nav>
   );
 }

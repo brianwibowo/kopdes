@@ -1,38 +1,47 @@
 import React from "react";
 import { getKoperasiList, getProvinsiList } from "@/lib/data";
-import { IndonesiaMap } from "@/components/map/IndonesiaMap";
-import { MapPin, Info, Layers } from "lucide-react";
+import { SimkopdesMap } from "@/components/map/SimkopdesMap";
+import { MapPin, Info } from "lucide-react";
 
 export default function PetaPage() {
   const allKoperasi = getKoperasiList();
   const provinsiList = getProvinsiList();
 
   return (
-    <div className="space-y-4 pb-12">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-2">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-red-500" />
-            <span>Peta Spasial Sebaran Koperasi Nasional</span>
-          </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Eksplorasi titik sebaran KDMP di seluruh 38 provinsi di Indonesia dengan koordinat tervalidasi daratan
+    <div className="bg-white min-h-screen py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#E6E8EB] gap-2">
+          <div>
+            <h1 className="text-[28px] sm:text-[34px] font-bold text-[#065366]">
+              Persebaran Wilayah Nasional
+            </h1>
+            <p className="text-sm text-gray-500 mt-0.5">
+              Visualisasi representatif persebaran Koperasi Desa Merah Putih di seluruh 38 provinsi di Indonesia
+            </p>
+          </div>
+
+          <div className="text-xs text-gray-500 bg-[#F2F3F7] px-3 py-1.5 rounded-md border border-[#E6E8EB] flex items-center gap-1.5">
+            <Info className="w-3.5 h-3.5 text-[#065366]" />
+            <span>Klik pada titik lingkaran provinsi untuk melihat rincian</span>
+          </div>
+        </div>
+
+        {/* Keterangan Peta */}
+        <div className="bg-[#FFFBEB] border border-[#FDE68A] p-4 rounded-[10px] text-xs text-[#92400E] leading-relaxed">
+          <p className="font-bold mb-1">Keterangan Peta:</p>
+          <p>
+            Angka menunjukkan jumlah koperasi yang telah terbentuk secara kelembagaan, bukan jumlah gedung atau gerai yang telah dibangun.
+          </p>
+          <p className="mt-1">
+            Lingkaran (bubble) pada peta bukan merupakan titik koordinat atau lokasi geografis presisi KDKMP. Posisi bubble digunakan sebagai visualisasi representatif pada wilayah provinsi.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-          <Info className="w-3.5 h-3.5 text-blue-400" />
-          <span>Klik penanda titik untuk membuka panel rincian koperasi</span>
-        </div>
+        <SimkopdesMap
+          provinsiList={provinsiList}
+          koperasiList={allKoperasi}
+        />
       </div>
-
-      {/* Full Map Canvas */}
-      <IndonesiaMap
-        koperasiList={allKoperasi}
-        provinsiList={provinsiList}
-        height="h-[calc(100vh-210px)] min-h-[580px]"
-      />
     </div>
   );
 }
