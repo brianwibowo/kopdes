@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Provinsi {
+  id        String      @id @db.VarChar(2)
+  nama      String      @db.VarChar(100)
+  latitude  Float?
+  longitude Float?
+  koperasi  Koperasi[]
+}
+
+model Koperasi {
+  id            String         @id @default(cuid())
+  nama          String         @db.VarChar(200)
+  noRegistrasi  String         @unique @map("no_registrasi") @db.VarChar(30)
+  provinsiId    String         @map("provinsi_id") @db.VarChar(2)
+  kabupaten     String         @db.VarChar(100)
+  kecamatan     String         @db.VarChar(100)
+  desa          String         @db.VarChar(100)
+  alamat        String?        @db.Text
+  latitude      Float
+  longitude     Float
+  status        StatusKoperasi @default(AKTIF)
+  jenisUsaha    String[]       @map("jenis_usaha")
+  jumlahAnggota Int            @map("jumlah_anggota") @default(0)
+  totalAset     BigInt         @map("total_aset") @default(0)
+  totalShu      BigInt         @map("total_shu") @default(0)
+  volumeUsaha   BigInt         @map("volume_usaha") @default(0)
+  tahunBerdiri  Int            @map("tahun_berdiri")
+  ketua         String         @db.VarChar(100)
+  telepon       String?        @db.VarChar(20)
+  email         String?        @db.VarChar(100)
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  provinsi Provinsi @relation(fields: [provinsiId], references: [id])
+
+  @@map("koperasi")
+}
+
+enum StatusKoperasi {
+  AKTIF
+  TIDAK_AKTIF
+  BEKU
+}
