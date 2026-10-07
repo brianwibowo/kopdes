@@ -1,0 +1,535 @@
+{
+  "website": {
+    "services": 41900000,
+    "server": 7000000,
+    "total": 48900000,
+    "groups": [
+      {
+        "code": "A",
+        "name": "Analisis kebutuhan dan UI/UX",
+        "subtotal": 5500000,
+        "items": [
+          {
+            "description": "Pemetaan kebutuhan, alur pengguna, dan koordinasi awal",
+            "quantity": 2,
+            "unit": "sesi",
+            "unit_price": 750000,
+            "amount": 1500000
+          },
+          {
+            "description": "Arsitektur aplikasi, kontrak API, dan struktur informasi",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          },
+          {
+            "description": "Desain enam template layar responsif",
+            "quantity": 6,
+            "unit": "template",
+            "unit_price": 500000,
+            "amount": 3000000
+          }
+        ]
+      },
+      {
+        "code": "B",
+        "name": "Pengembangan frontend (FE)",
+        "subtotal": 10500000,
+        "items": [
+          {
+            "description": "Beranda, navigasi, dan komponen tampilan responsif",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 2000000,
+            "amount": 2000000
+          },
+          {
+            "description": "Direktori: pencarian, filter, tabel, dan pagination",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 2500000,
+            "amount": 2500000
+          },
+          {
+            "description": "Profil koperasi, legalitas, dan informasi usaha",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 2000000,
+            "amount": 2000000
+          },
+          {
+            "description": "Dashboard statistik, grafik, dan tahapan kelembagaan",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 2500000,
+            "amount": 2500000
+          },
+          {
+            "description": "Etalase marketplace dan tautan profil / model usaha",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 1500000,
+            "amount": 1500000
+          }
+        ]
+      },
+      {
+        "code": "C",
+        "name": "Pengembangan backend (BE)",
+        "subtotal": 7500000,
+        "items": [
+          {
+            "description": "API kelola data profil koperasi dan komoditas",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 3000000,
+            "amount": 3000000
+          },
+          {
+            "description": "Alur akun, login admin, dan manajemen peran dasar",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 2000000,
+            "amount": 2000000
+          },
+          {
+            "description": "Import satu format CSV dan ekspor rekap data",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1500000,
+            "amount": 1500000
+          },
+          {
+            "description": "Endpoint agregasi statistik dan integrasi frontend",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          }
+        ]
+      },
+      {
+        "code": "D",
+        "name": "Database dan penyiapan data",
+        "subtotal": 4000000,
+        "items": [
+          {
+            "description": "Perancangan ERD dan skema database operasional",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1500000,
+            "amount": 1500000
+          },
+          {
+            "description": "Migrasi, indeks dasar, dan koneksi database",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1500000,
+            "amount": 1500000
+          },
+          {
+            "description": "Validasi, pemetaan, dan pemuatan dataset awal terstruktur",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          }
+        ]
+      },
+      {
+        "code": "E",
+        "name": "Keamanan aplikasi",
+        "subtotal": 3500000,
+        "items": [
+          {
+            "description": "Penguatan sesi dan pengujian pembatasan hak akses",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1200000,
+            "amount": 1200000
+          },
+          {
+            "description": "Validasi input, batas permintaan, dan konfigurasi header",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1300000,
+            "amount": 1300000
+          },
+          {
+            "description": "Pemeriksaan dependensi, rahasia aplikasi, dan konfigurasi",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          }
+        ]
+      },
+      {
+        "code": "F",
+        "name": "Pengujian dan perbaikan",
+        "subtotal": 4000000,
+        "items": [
+          {
+            "description": "Pengujian fungsi utama dan regresi alur pengguna",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 2000000,
+            "amount": 2000000
+          },
+          {
+            "description": "Pemeriksaan browser, tampilan responsif, dan peta",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          },
+          {
+            "description": "Pendampingan UAT dan perbaikan temuan sesuai scope",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          }
+        ]
+      },
+      {
+        "code": "G",
+        "name": "Deployment dan serah terima",
+        "subtotal": 4400000,
+        "items": [
+          {
+            "description": "Pipeline build, deployment aplikasi, dan konfigurasi domain",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1500000,
+            "amount": 1500000
+          },
+          {
+            "description": "Konfigurasi environment serta uji backup dan pemulihan awal",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1200000,
+            "amount": 1200000
+          },
+          {
+            "description": "Dokumentasi teknis dan panduan penggunaan",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 900000,
+            "amount": 900000
+          },
+          {
+            "description": "Pelatihan operator dan serah terima akses / source code",
+            "quantity": 1,
+            "unit": "sesi",
+            "unit_price": 800000,
+            "amount": 800000
+          }
+        ]
+      },
+      {
+        "code": "H",
+        "name": "Manajemen pekerjaan",
+        "subtotal": 2500000,
+        "items": [
+          {
+            "description": "Koordinasi progres, pencatatan keputusan, dan pengendalian revisi",
+            "quantity": 10,
+            "unit": "minggu",
+            "unit_price": 250000,
+            "amount": 2500000
+          }
+        ]
+      },
+      {
+        "code": "I",
+        "name": "Server / hosting dan operasional 12 bulan",
+        "subtotal": 7000000,
+        "items": [
+          {
+            "description": "Alokasi kapasitas hosting aplikasi website",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 175000,
+            "amount": 2100000
+          },
+          {
+            "description": "Alokasi kapasitas database operasional / VPS",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 200000,
+            "amount": 2400000
+          },
+          {
+            "description": "Penyimpanan cadangan data operasional",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 75000,
+            "amount": 900000
+          },
+          {
+            "description": "Monitoring dasar dan pemeliharaan layanan infrastruktur",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 100000,
+            "amount": 1200000
+          },
+          {
+            "description": "Alokasi transfer data / traffic tahunan",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 400000,
+            "amount": 400000
+          }
+        ]
+      }
+    ]
+  },
+  "modelling": {
+    "services": 17900000,
+    "server": 7000000,
+    "total": 24900000,
+    "groups": [
+      {
+        "code": "A",
+        "name": "Analisis model dan kontrak data",
+        "subtotal": 2000000,
+        "items": [
+          {
+            "description": "Pemetaan empat model dan kebutuhan hasil bersama periset",
+            "quantity": 1,
+            "unit": "sesi",
+            "unit_price": 800000,
+            "amount": 800000
+          },
+          {
+            "description": "Kontrak struktur data, filter wilayah, dan periode",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 700000,
+            "amount": 700000
+          },
+          {
+            "description": "Penyepakatan parameter skenario serta contoh hasil acuan",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 500000,
+            "amount": 500000
+          }
+        ]
+      },
+      {
+        "code": "B",
+        "name": "Layouting dan frontend visualisasi",
+        "subtotal": 5000000,
+        "items": [
+          {
+            "description": "Supply chain: diagram agregat dan tabel hubungan",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 1250000,
+            "amount": 1250000
+          },
+          {
+            "description": "Peta Kopdes: filter wilayah, titik, dan tautan profil",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 1250000,
+            "amount": 1250000
+          },
+          {
+            "description": "Keuntungan: kartu hasil, grafik, dan kontrol skenario",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 1250000,
+            "amount": 1250000
+          },
+          {
+            "description": "Arus kas: grafik, tabel bulanan, dan simulasi jeda",
+            "quantity": 1,
+            "unit": "modul",
+            "unit_price": 1250000,
+            "amount": 1250000
+          }
+        ]
+      },
+      {
+        "code": "C",
+        "name": "Backend perhitungan dan integrasi",
+        "subtotal": 3500000,
+        "items": [
+          {
+            "description": "Implementasi mesin hitung deterministik dari rumus periset",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1500000,
+            "amount": 1500000
+          },
+          {
+            "description": "Endpoint model serta penyaringan wilayah dan periode",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          },
+          {
+            "description": "Ekspor CSV, JSON, SVG dan layout cetak / PDF browser",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          }
+        ]
+      },
+      {
+        "code": "D",
+        "name": "Database dataset modelling",
+        "subtotal": 1500000,
+        "items": [
+          {
+            "description": "Ekstensi skema periode, parameter, dan versi dataset",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 800000,
+            "amount": 800000
+          },
+          {
+            "description": "Pemetaan import terstruktur dan validasi dataset modelling",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 700000,
+            "amount": 700000
+          }
+        ]
+      },
+      {
+        "code": "E",
+        "name": "Keamanan modul modelling",
+        "subtotal": 1000000,
+        "items": [
+          {
+            "description": "Validasi parameter model dan sanitasi keluaran ekspor",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 500000,
+            "amount": 500000
+          },
+          {
+            "description": "Integrasi hak akses dataset / ekspor dengan akun website",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 500000,
+            "amount": 500000
+          }
+        ]
+      },
+      {
+        "code": "F",
+        "name": "Pengujian hasil dan UAT",
+        "subtotal": 2500000,
+        "items": [
+          {
+            "description": "Pencocokan keluaran terhadap contoh hitung yang disetujui periset",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1500000,
+            "amount": 1500000
+          },
+          {
+            "description": "Uji integrasi antarmodul, filter, ekspor, dan perbaikan UAT",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 1000000,
+            "amount": 1000000
+          }
+        ]
+      },
+      {
+        "code": "G",
+        "name": "Deployment, panduan, dan serah terima",
+        "subtotal": 1500000,
+        "items": [
+          {
+            "description": "Deployment rute modelling pada aplikasi / domain yang sama",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 500000,
+            "amount": 500000
+          },
+          {
+            "description": "Panduan model, asumsi, serta penggunaan hasil ekspor",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 500000,
+            "amount": 500000
+          },
+          {
+            "description": "Pelatihan penggunaan dan serah terima modul",
+            "quantity": 1,
+            "unit": "sesi",
+            "unit_price": 500000,
+            "amount": 500000
+          }
+        ]
+      },
+      {
+        "code": "H",
+        "name": "Koordinasi finalisasi",
+        "subtotal": 900000,
+        "items": [
+          {
+            "description": "Koordinasi finalisasi data, rumus, dan hasil bersama periset",
+            "quantity": 3,
+            "unit": "sesi",
+            "unit_price": 300000,
+            "amount": 900000
+          }
+        ]
+      },
+      {
+        "code": "I",
+        "name": "Server / hosting modelling dan operasional 12 bulan",
+        "subtotal": 7000000,
+        "items": [
+          {
+            "description": "Alokasi tambahan komputasi model dan pembuatan hasil ekspor",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 250000,
+            "amount": 3000000
+          },
+          {
+            "description": "Penyimpanan tambahan dataset dan hasil modelling",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 125000,
+            "amount": 1500000
+          },
+          {
+            "description": "Cadangan dan retensi versi dataset modelling",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 75000,
+            "amount": 900000
+          },
+          {
+            "description": "Monitoring kapasitas komputasi dan layanan modelling",
+            "quantity": 12,
+            "unit": "bulan",
+            "unit_price": 100000,
+            "amount": 1200000
+          },
+          {
+            "description": "Alokasi transfer dataset / traffic tahunan modelling",
+            "quantity": 1,
+            "unit": "paket",
+            "unit_price": 400000,
+            "amount": 400000
+          }
+        ]
+      }
+    ]
+  },
+  "grand_total": 73800000
+}

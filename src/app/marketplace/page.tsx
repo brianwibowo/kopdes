@@ -1,23 +1,11 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { getKoperasiList, formatRupiah, formatAngka } from "@/lib/data";
+import { getKoperasiList, getProvinsiList, formatRupiah } from "@/lib/data";
 import { Pagination } from "@/components/ui/Pagination";
-import { 
-  ShoppingBag, 
-  Search, 
-  MapPin, 
-  Building2, 
-  Truck, 
-  ShieldCheck, 
-  ArrowRight, 
-  CheckCircle2, 
-  ExternalLink,
-  ChevronRight,
-  Filter,
-  Package
-} from "lucide-react";
+import { ShoppingBag, Search, MapPin, Building2, Network, ChevronRight } from "lucide-react";
+import { categoryFor } from "@/features/modelling/model";
 
 export default function MarketplacePage() {
   const allKoperasi = useMemo(() => getKoperasiList(), []);
@@ -28,6 +16,7 @@ export default function MarketplacePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
 
+  const provinces = useMemo(() => getProvinsiList(), []);
   const categories = [
     { id: "ALL", label: "Semua Komoditas" },
     { id: "Beras", label: "Padi & Beras" },
@@ -36,18 +25,12 @@ export default function MarketplacePage() {
     { id: "Sawit", label: "Perkebunan & Sawit" },
     { id: "Ikan", label: "Perikanan & Bahari" },
     { id: "Rempah", label: "Rempah & Hortikultura" },
+    { id: "Lainnya", label: "Lainnya" },
   ];
 
   const commodities = useMemo(() => {
     return allKoperasi.map((k) => {
-      let kategori = "Lainnya";
-      const name = k.komoditasUtama.toLowerCase();
-      if (name.includes("beras") || name.includes("padi")) kategori = "Beras";
-      else if (name.includes("kopi") || name.includes("kakao") || name.includes("cokelat")) kategori = "Kopi";
-      else if (name.includes("susu") || name.includes("daging") || name.includes("sapi") || name.includes("bebek")) kategori = "Susu";
-      else if (name.includes("sawit") || name.includes("karet") || name.includes("tebu")) kategori = "Sawit";
-      else if (name.includes("ikan") || name.includes("udang") || name.includes("kerapu") || name.includes("cumi")) kategori = "Ikan";
-      else if (name.includes("lada") || name.includes("pala") || name.includes("cengkih") || name.includes("sayur") || name.includes("bawang") || name.includes("nanas")) kategori = "Rempah";
+      const kategori = categoryFor(k);
 
       return {
         id: k.id,
@@ -59,12 +42,10 @@ export default function MarketplacePage() {
         kabupaten: k.kabupaten,
         provinsiNama: k.provinsiNama,
         provinsiId: k.provinsiId,
-        offtaker: k.mitraOfftaker || "BUMDes Bersama & Agregator Nasional",
-        volume: `${formatAngka(Math.round(Number(k.volumeUsaha) / 10000000))} Ton/Tahun`,
+        offtaker: k.mitraOfftaker || "Mitra belum terdata",
         nilai: k.volumeUsaha,
         telepon: k.telepon,
         ketua: k.ketua,
-        sertifikasi: ["SNI / PIRT", "Halal Kemenag", "Binaan Kemenkop"],
       };
     });
   }, [allKoperasi]);
@@ -90,9 +71,6 @@ export default function MarketplacePage() {
     });
   }, [commodities, search, selectedKategori, selectedProvinsi]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, selectedKategori, selectedProvinsi]);
 
   const totalPages = Math.ceil(filteredCommodities.length / pageSize) || 1;
   const paginatedCommodities = useMemo(() => {
@@ -108,23 +86,23 @@ export default function MarketplacePage() {
           <div className="relative z-10 max-w-2xl">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-xs font-semibold backdrop-blur-md mb-3 border border-white/20">
               <ShoppingBag className="w-3.5 h-3.5 text-amber-300" />
-              <span>Etalase Rantai Pasok Pangan Nasional</span>
+              <span>DEMO / MVP · Etalase komoditas</span>
             </span>
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
               Marketplace Komoditas Koperasi Desa Merah Putih
             </h1>
             <p className="mt-3 text-sm text-red-100 leading-relaxed">
-              Menghubungkan komoditas unggulan desa langsung dengan offtaker BUMN, agregator ekspor, dan industri manufaktur pangan nasional.
+              Jelajahi komoditas dan hubungan mitra pada dataset contoh. Buka supply chain untuk melihat model usaha koperasi; transaksi dan kontak kemitraan belum tersedia pada MVP.
             </p>
           </div>
 
-          <div className="hidden lg:flex items-center gap-6 absolute right-8 bottom-8 text-right">
+          <div className="hidden lg:flex items-center gap-6 mt-6">
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
               <div className="text-2xl font-black text-white">{commodities.length}</div>
               <div className="text-xs text-red-200">Komoditas Terdata</div>
             </div>
             <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
-              <div className="text-2xl font-black text-white">38</div>
+              <div className="text-2xl font-black text-white">{provinces.length}</div>
               <div className="text-xs text-red-200">Provinsi Asal</div>
             </div>
           </div>
@@ -139,7 +117,7 @@ export default function MarketplacePage() {
               return (
                 <button
                   key={cat.id}
-                  onClick={() => setSelectedKategori(cat.id)}
+                  onClick={() => { setSelectedKategori(cat.id); setCurrentPage(1); }}
                   className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     isActive
                       ? "bg-red-700 text-white shadow-xs"
@@ -160,11 +138,13 @@ export default function MarketplacePage() {
                 type="text"
                 placeholder="Cari komoditas (misal: Kopi Gayo, Beras Pandanwangi, Susu, Sawit)..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                aria-label="Cari komoditas"
+                onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
                 className="w-full pl-10 pr-4 py-2.5 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-1 focus:ring-red-700 bg-white"
               />
             </div>
 
+            <select aria-label="Filter provinsi marketplace" value={selectedProvinsi} onChange={e => { setSelectedProvinsi(e.target.value); setCurrentPage(1); }} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-xs sm:w-56"><option value="ALL">Semua provinsi</option>{provinces.map(p => <option key={p.id} value={p.id}>{p.nama}</option>)}</select>
             <div className="text-xs text-slate-500 shrink-0 font-medium">
               Ditemukan: <strong className="text-slate-900">{filteredCommodities.length}</strong> produk
             </div>
@@ -213,29 +193,13 @@ export default function MarketplacePage() {
                     <span className="font-bold text-slate-800 block mt-0.5">{item.offtaker}</span>
                   </div>
 
-                  <div className="flex items-center justify-between pt-1 border-t border-slate-200 text-[11px]">
-                    <span className="text-slate-500">Estimasi Kapasitas:</span>
-                    <span className="font-bold text-slate-900">{item.volume}</span>
-                  </div>
-
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="text-slate-500">Estimasi Nilai Perputaran:</span>
+                    <span className="text-slate-500">Pendapatan contoh 2026:</span>
                     <span className="font-bold text-emerald-700">{formatRupiah(item.nilai)}</span>
                   </div>
                 </div>
 
-                {/* Quality Badges */}
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {item.sertifikasi.map((s, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-flex items-center gap-1 text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded"
-                    >
-                      <CheckCircle2 className="w-2.5 h-2.5 text-emerald-600" />
-                      <span>{s}</span>
-                    </span>
-                  ))}
-                </div>
+                <p className="mt-3 text-[11px] text-slate-400">Tonase dan sertifikasi belum tersedia pada dataset.</p>
               </div>
 
               {/* Action Buttons */}
@@ -248,19 +212,16 @@ export default function MarketplacePage() {
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
 
-                <a
-                  href={`https://wa.me/62${item.telepon.replace(/\D/g, "")}?text=Halo%20Pengurus%20${encodeURIComponent(item.koperasiNama)},%20kami%20tertarik%20dengan%20komoditas%20${encodeURIComponent(item.nama)}.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-red-700 hover:bg-red-800 text-white text-xs font-bold transition-colors flex items-center gap-1 shadow-2xs"
-                >
-                  <Truck className="w-3.5 h-3.5" />
-                  <span>Kemitraan</span>
-                </a>
+                <Link
+                  href={`/modelling/supply-chain?province=${item.provinsiId}&cooperative=${item.id}`}
+                  className="flex items-center gap-1 rounded-lg bg-red-800 px-3 py-2 text-xs font-bold text-white hover:bg-red-900"
+                ><Network size={14} /> Model usaha</Link>
               </div>
             </div>
           ))}
         </div>
+
+        {filteredCommodities.length === 0 && <p role="status" className="rounded-xl border border-dashed border-slate-300 p-10 text-center text-sm text-slate-500">Tidak ada komoditas yang sesuai. Ubah pencarian atau filter wilayah.</p>}
 
         {/* Pagination */}
         <div className="rounded-xl border border-slate-200 bg-white p-2">
@@ -273,7 +234,7 @@ export default function MarketplacePage() {
             }}
             totalItems={filteredCommodities.length}
             pageSize={pageSize}
-            onPageSizeChange={setPageSize}
+            onPageSizeChange={size => { setPageSize(size); setCurrentPage(1); }}
             pageSizeOptions={[9, 18, 36]}
             itemName="komoditas"
           />

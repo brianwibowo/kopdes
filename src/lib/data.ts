@@ -23,7 +23,7 @@ export function getKoperasiList(filters: FilterParams = {}): KoperasiItem[] {
         k.provinsiNama.toLowerCase().includes(q) ||
         k.komoditasUtama.toLowerCase().includes(q) ||
         k.ketua.toLowerCase().includes(q) ||
-        k.noRegistrasi.toLowerCase().includes(q)
+        k.noRegistrasi.toLowerCase().includes(q),
     );
   }
 
@@ -37,6 +37,12 @@ export function getKoperasiList(filters: FilterParams = {}): KoperasiItem[] {
 
   if (filters.tahap && filters.tahap !== "ALL") {
     result = result.filter((k) => k.tahap === filters.tahap);
+  }
+
+  if (filters.komoditas && filters.komoditas !== "ALL") {
+    result = result.filter((k) =>
+      k.komoditasUtama.toLowerCase().includes(filters.komoditas!.toLowerCase()),
+    );
   }
 
   return result;
@@ -55,11 +61,11 @@ export function getStats(): NationalStats {
 }
 
 export function formatRupiah(num: number): string {
-  if (num >= 1_000_000_000) {
-    return `Rp ${(num / 1_000_000_000).toFixed(1)} M`;
+  if (Math.abs(num) >= 1_000_000_000) {
+    return `Rp ${(num / 1_000_000_000).toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} M`;
   }
-  if (num >= 1_000_000) {
-    return `Rp ${(num / 1_000_000).toFixed(1)} Jt`;
+  if (Math.abs(num) >= 1_000_000) {
+    return `Rp ${(num / 1_000_000).toLocaleString("id-ID", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Jt`;
   }
   return new Intl.NumberFormat("id-ID", {
     style: "currency",

@@ -2,18 +2,39 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  BarChart3, 
-  ShoppingBag, 
-  Menu, 
-  X 
+import { usePathname, useSearchParams } from "next/navigation";
+import {
+  LayoutDashboard,
+  BarChart3,
+  ShoppingBag,
+  Network,
+  Building2,
+  Menu,
+  X,
 } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const modelParams = new URLSearchParams();
+  for (const key of [
+    "province",
+    "cooperative",
+    "from",
+    "to",
+    "price",
+    "cost",
+    "lag",
+  ]) {
+    const value = searchParams.get(key);
+    if (value) modelParams.set(key, value);
+  }
+  const modelQuery = modelParams.toString();
+  const navHref = (href: string) =>
+    modelQuery && ["/pers/dashboard", "/modelling"].includes(href)
+      ? `${href}?${modelQuery}`
+      : href;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -29,12 +50,15 @@ export function Navbar() {
   const navItems = [
     { label: "Beranda", href: "/", icon: LayoutDashboard },
     { label: "Statistik", href: "/pers/dashboard", icon: BarChart3 },
+    { label: "Modelling", href: "/modelling", icon: Network },
+    { label: "Direktori", href: "/koperasi", icon: Building2 },
     { label: "Marketplace", href: "/marketplace", icon: ShoppingBag },
   ];
 
   const isHome = pathname === "/";
   const isTransparent = isHome && !isScrolled;
-  const isStatistikActive = pathname.startsWith("/pers/dashboard") || pathname === "/statistik";
+  const isStatistikActive =
+    pathname.startsWith("/pers/dashboard") || pathname === "/statistik";
 
   return (
     <nav
@@ -58,21 +82,21 @@ export function Navbar() {
               item.href === "/"
                 ? pathname === "/"
                 : item.href === "/pers/dashboard"
-                ? isStatistikActive
-                : pathname.startsWith(item.href);
+                  ? isStatistikActive
+                  : pathname.startsWith(item.href);
 
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={navHref(item.href)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${
                   isTransparent
                     ? isActive
                       ? "bg-white/20 text-white backdrop-blur-md border border-white/30 shadow-xs"
                       : "text-white/90 hover:text-white hover:bg-white/10"
                     : isActive
-                    ? "bg-red-50 text-red-800 border border-red-200 shadow-2xs"
-                    : "text-slate-700 hover:text-red-700 hover:bg-slate-50"
+                      ? "bg-red-50 text-red-800 border border-red-200 shadow-2xs"
+                      : "text-slate-700 hover:text-red-700 hover:bg-slate-50"
                 }`}
               >
                 <Icon
@@ -82,8 +106,8 @@ export function Navbar() {
                         ? "text-white"
                         : "text-white/80"
                       : isActive
-                      ? "text-red-700"
-                      : "text-slate-400"
+                        ? "text-red-700"
+                        : "text-slate-400"
                   }`}
                 />
                 <span>{item.label}</span>
@@ -101,9 +125,14 @@ export function Navbar() {
                 ? "text-white hover:bg-white/10"
                 : "text-slate-700 hover:text-red-700 hover:bg-slate-100"
             }`}
-            aria-label="Toggle menu"
+            aria-label="Buka navigasi"
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
@@ -117,13 +146,13 @@ export function Navbar() {
               item.href === "/"
                 ? pathname === "/"
                 : item.href === "/pers/dashboard"
-                ? isStatistikActive
-                : pathname.startsWith(item.href);
+                  ? isStatistikActive
+                  : pathname.startsWith(item.href);
 
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={navHref(item.href)}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold ${
                   isActive
@@ -131,7 +160,9 @@ export function Navbar() {
                     : "text-slate-700 hover:bg-slate-50"
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-red-700" : "text-slate-500"}`} />
+                <Icon
+                  className={`w-4 h-4 ${isActive ? "text-red-700" : "text-slate-500"}`}
+                />
                 <span>{item.label}</span>
               </Link>
             );

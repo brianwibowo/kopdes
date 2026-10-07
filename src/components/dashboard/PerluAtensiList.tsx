@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { KoperasiItem } from "@/lib/types";
-import { AlertTriangle, ChevronRight, MapPin, User } from "lucide-react";
+import { AlertTriangle, ChevronRight, MapPin } from "lucide-react";
 
 interface PerluAtensiListProps {
   koperasiList: KoperasiItem[];

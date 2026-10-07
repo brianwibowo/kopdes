@@ -1,7 +1,7 @@
 import React from "react";
 import { NationalStats } from "@/lib/types";
 import { formatRupiah, formatAngka } from "@/lib/data";
-import { Building2, Users, Coins, TrendingUp, AlertCircle, CheckCircle } from "lucide-react";
+import { Building2, Users, Coins, TrendingUp } from "lucide-react";
 
 interface StatCardsProps {
   stats: NationalStats;

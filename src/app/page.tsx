@@ -8,12 +8,7 @@ import {
   ShoppingBag, 
   MapPin, 
   Building2, 
-  Coins, 
-  TrendingUp, 
-  Users, 
-  CheckCircle2, 
   ArrowRight,
-  ShieldCheck,
   AlertTriangle
 } from "lucide-react";
 
@@ -85,7 +80,7 @@ export default function HomePage() {
             <div className="max-w-[560px] text-white">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-700/80 text-white text-xs font-bold tracking-wide backdrop-blur-sm border border-red-500/40">
                 <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                <span>Koperasi Desa Merah Putih</span>
+                <span>DEMO / MVP · Koperasi Desa Merah Putih</span>
               </span>
 
               <h1 className="mt-3 text-[32px] font-black leading-tight md:text-5xl text-white tracking-tight">
@@ -94,7 +89,7 @@ export default function HomePage() {
               </h1>
 
               <p className="mt-3 text-sm md:text-base text-slate-200 leading-relaxed font-normal">
-                Platform pengawasan spasial dan etalase komoditas nasional untuk mengawal transformasi koperasi desa di seluruh 38 provinsi Indonesia.
+                Eksplorasi data, komoditas, dan model usaha koperasi desa. Menggunakan dataset sintetis 2026 untuk presentasi, bukan data lapangan.
               </p>
 
               {/* CTAs */}
@@ -109,11 +104,11 @@ export default function HomePage() {
                 </Link>
 
                 <Link
-                  href="/marketplace"
+                  href="/modelling/supply-chain"
                   className="inline-flex items-center gap-2 rounded-lg bg-white/95 hover:bg-white px-5 py-3 text-sm md:text-base font-bold text-slate-900 transition-colors shadow-sm"
                 >
                   <ShoppingBag className="w-4 h-4 text-red-700" />
-                  <span>Marketplace Komoditas</span>
+                  <span>Jelajahi Modelling</span>
                 </Link>
               </div>
             </div>
@@ -122,7 +117,7 @@ export default function HomePage() {
             <div className="flex flex-wrap sm:flex-nowrap gap-3.5">
               <div className="bg-slate-900/70 backdrop-blur-md rounded-xl p-4 border border-white/15 text-white min-w-[135px]">
                 <div className="text-2xl md:text-3xl font-black text-white">{stats.totalKoperasi}</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">Koperasi Binaan</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">Koperasi Contoh</div>
               </div>
 
               <div className="bg-slate-900/70 backdrop-blur-md rounded-xl p-4 border border-white/15 text-white min-w-[135px]">
@@ -131,8 +126,8 @@ export default function HomePage() {
               </div>
 
               <div className="bg-slate-900/70 backdrop-blur-md rounded-xl p-4 border border-white/15 text-white min-w-[135px]">
-                <div className="text-2xl md:text-3xl font-black text-amber-400">{stats.koperasiAktif}</div>
-                <div className="text-[11px] text-slate-300 mt-0.5">Unit Ber-NIB & Sah</div>
+                <div className="text-2xl md:text-3xl font-black text-amber-400">{allKoperasi.filter(k => Boolean(k.nib)).length}</div>
+                <div className="text-[11px] text-slate-300 mt-0.5">NIB dalam Dataset</div>
               </div>
             </div>
           </div>
@@ -200,19 +195,19 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
               <span className="text-xs font-bold text-red-700 uppercase tracking-wider">
-                Geospasial Presisi
+                Sebaran Data Contoh
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mt-1 flex items-center gap-2">
                 <MapPin className="w-6 h-6 text-red-700" />
                 <span>Peta Sebaran Koperasi di 38 Provinsi</span>
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Eksplorasi spasial titik riil di daratan dan status kelembagaan desa di seluruh Indonesia
+                Koordinat ilustratif koperasi dalam dataset. Satu titik mewakili satu koperasi contoh.
               </p>
             </div>
 
             <Link
-              href="/pers/dashboard"
+              href="/modelling/peta"
               className="text-xs font-bold text-red-700 hover:text-red-800 flex items-center gap-1 shrink-0"
             >
               <span>Buka Peta Penuh</span>
@@ -236,7 +231,7 @@ export default function HomePage() {
                   <Building2 className="w-4 h-4 text-red-700" />
                   <span>Koperasi Binaan Terdaftar</span>
                 </h3>
-                <Link href="/pers/dashboard" className="text-xs font-bold text-red-700 hover:underline">
+                <Link href="/koperasi" className="text-xs font-bold text-red-700 hover:underline">
                   Lihat Semua ({allKoperasi.length})
                 </Link>
               </div>
@@ -253,7 +248,7 @@ export default function HomePage() {
                         {k.nama}
                       </Link>
                       <div className="text-[11px] text-slate-500">
-                        Desa {k.desa}, {k.kabupaten} ({k.provinsiNama})
+                        {k.desa}, {k.kabupaten} ({k.provinsiNama})
                       </div>
                     </div>
                     <div className="text-right shrink-0">
@@ -269,7 +264,7 @@ export default function HomePage() {
 
             <div className="pt-4 mt-2 border-t border-slate-100">
               <Link
-                href="/pers/dashboard"
+                href="/koperasi"
                 className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-colors"
               >
                 <span>Buka Tabel Direktori Nasional</span>
@@ -290,7 +285,7 @@ export default function HomePage() {
                     <h3 className="text-base font-bold text-slate-900">
                       Unit Memerlukan Pendampingan Khusus
                     </h3>
-                    <p className="text-[11px] text-slate-600">Sistem deteksi dini hambatan perizinan & permodalan</p>
+                    <p className="text-[11px] text-slate-600">Catatan pendampingan dari dataset contoh</p>
                   </div>
                 </div>
                 <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold border border-amber-300">
@@ -332,7 +327,7 @@ export default function HomePage() {
                 href="/pers/dashboard"
                 className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors shadow-2xs"
               >
-                <span>Kelola Rencana Pendampingan Lapangan</span>
+                <span>Lihat Ringkasan Koperasi</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

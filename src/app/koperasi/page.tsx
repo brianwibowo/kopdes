@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { getKoperasiList, getProvinsiList, formatRupiah, formatAngka } from "@/lib/data";
+import { getKoperasiList, getProvinsiList, formatRupiah } from "@/lib/data";
+import { downloadCsv } from "@/lib/export";
 import { Pagination } from "@/components/ui/Pagination";
 import { 
-  Building2, 
   Search, 
   Download, 
   ChevronRight, 
   RotateCcw,
-  CheckCircle2,
-  AlertTriangle
 } from "lucide-react";
 
 export default function KoperasiPage() {
@@ -53,9 +51,6 @@ export default function KoperasiPage() {
     setCurrentPage(1);
   };
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, selectedProvinsi, selectedStatus]);
 
   const totalPages = Math.ceil(filteredKoperasi.length / pageSize) || 1;
   const paginatedKoperasi = useMemo(() => {
@@ -79,35 +74,8 @@ export default function KoperasiPage() {
       "Ketua",
     ];
 
-    const rows = filteredKoperasi.map((k) => [
-      `"${k.noRegistrasi}"`,
-      `"${k.nama}"`,
-      `"${k.provinsiNama}"`,
-      `"${k.kabupaten}"`,
-      `"${k.kecamatan}"`,
-      `"${k.desa}"`,
-      `"${k.status}"`,
-      `"${k.komoditasUtama}"`,
-      k.jumlahAnggota,
-      k.totalAset,
-      k.volumeUsaha,
-      `"${k.ketua}"`,
-    ]);
-
-    const csvContent =
-      "data:text/csv;charset=utf-8," +
-      "# SIMKOPDES - REKAPITULASI KOPERASI DESA MERAH PUTIH\n" +
-      headers.join(",") +
-      "\n" +
-      rows.map((e) => e.join(",")).join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `simkopdes_koperasi_${new Date().toISOString().slice(0, 10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const rows = filteredKoperasi.map(k => [k.noRegistrasi, k.nama, k.provinsiNama, k.kabupaten, k.kecamatan, k.desa, k.status, k.komoditasUtama, k.jumlahAnggota, k.totalAset, k.volumeUsaha, k.ketua, "DEMO 2026"]);
+    downloadCsv([[...headers, "Jenis Dataset"], ...rows], "kopdes-direktori-demo-2026.csv");
   };
 
   return (
@@ -120,7 +88,7 @@ export default function KoperasiPage() {
               Direktori Koperasi Desa/Kelurahan
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              Data kelembagaan dan status legalitas Koperasi Desa Merah Putih di seluruh Indonesia
+              DEMO / MVP · Data contoh kelembagaan dan keuangan 2026, belum diverifikasi.
             </p>
           </div>
 
@@ -142,14 +110,16 @@ export default function KoperasiPage() {
                 type="text"
                 placeholder="Cari nama koperasi, desa, kabupaten..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                aria-label="Cari koperasi"
+                onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
                 className="w-full bg-white text-gray-900 text-xs pl-9 pr-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#991b1b]"
               />
             </div>
 
             <select
               value={selectedProvinsi}
-              onChange={(e) => setSelectedProvinsi(e.target.value)}
+              aria-label="Filter provinsi direktori"
+              onChange={(e) => { setSelectedProvinsi(e.target.value); setCurrentPage(1); }}
               className="bg-white text-gray-900 text-xs px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#991b1b]"
             >
               <option value="ALL">Semua Provinsi ({provinsiList.length})</option>
@@ -162,7 +132,8 @@ export default function KoperasiPage() {
 
             <select
               value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
+              aria-label="Filter status"
+              onChange={(e) => { setSelectedStatus(e.target.value); setCurrentPage(1); }}
               className="bg-white text-gray-900 text-xs px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#991b1b]"
             >
               <option value="ALL">Semua Status Keaktifan</option>
@@ -200,8 +171,8 @@ export default function KoperasiPage() {
                   <th className="py-3 px-4">Wilayah Desa</th>
                   <th className="py-3 px-4">Provinsi</th>
                   <th className="py-3 px-4">Komoditas Utama</th>
-                  <th className="py-3 px-4 text-right">Simpanan Pokok</th>
-                  <th className="py-3 px-4 text-right">Simpanan Wajib</th>
+                  <th className="py-3 px-4 text-right">Total Aset</th>
+                  <th className="py-3 px-4 text-right">Pendapatan 2026</th>
                   <th className="py-3 px-4 text-center">Status</th>
                   <th className="py-3 px-4 text-center">Aksi</th>
                 </tr>
@@ -232,8 +203,8 @@ export default function KoperasiPage() {
                       </td>
                       <td className="py-3 px-4 font-medium text-gray-800">{k.provinsiNama}</td>
                       <td className="py-3 px-4 text-gray-800 font-medium">{k.komoditasUtama}</td>
-                      <td className="py-3 px-4 text-right text-gray-700">{formatRupiah(k.totalAset * 0.3)}</td>
-                      <td className="py-3 px-4 text-right text-gray-700">{formatRupiah(k.totalAset * 0.7)}</td>
+                      <td className="py-3 px-4 text-right text-gray-700">{formatRupiah(k.totalAset)}</td>
+                      <td className="py-3 px-4 text-right text-gray-700">{formatRupiah(k.volumeUsaha)}</td>
                       <td className="py-3 px-4 text-center">
                         <span
                           className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
@@ -269,7 +240,7 @@ export default function KoperasiPage() {
               onPageChange={setCurrentPage}
               totalItems={filteredKoperasi.length}
               pageSize={pageSize}
-              onPageSizeChange={setPageSize}
+              onPageSizeChange={size => { setPageSize(size); setCurrentPage(1); }}
               pageSizeOptions={[10, 20, 50]}
               itemName="koperasi"
             />

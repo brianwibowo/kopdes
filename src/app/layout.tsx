@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
@@ -24,7 +25,9 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${plusJakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-slate-900 font-sans selection:bg-[#991b1b] selection:text-white pt-[75px]">
-        <Navbar />
+        <Suspense>
+          <Navbar />
+        </Suspense>
         <main className="flex-1 w-full">{children}</main>
         <Footer />
       </body>
